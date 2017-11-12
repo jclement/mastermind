@@ -46,8 +46,8 @@ type Game struct {
 	Solution   GameRow
 	Guesses    []GameRow
 	State      GameState
-	maxColors  int
-	maxGuesses int
+	MaxColors  int
+	MaxGuesses int
 }
 
 // GuessResult represents the result of a guess
@@ -68,7 +68,7 @@ func (game *Game) SubmitGuess(g GameRow) (GuessResult, error) {
 	}
 
 	for i := 0; i < len(g); i++ {
-		if g[i] >= game.maxColors {
+		if g[i] >= game.MaxColors {
 			return GuessResult{}, ErrBadGuess
 		}
 	}
@@ -100,7 +100,7 @@ func (game *Game) SubmitGuess(g GameRow) (GuessResult, error) {
 		game.State = StateWin
 	}
 
-	if len(game.Guesses) >= game.maxGuesses {
+	if len(game.Guesses) >= game.MaxGuesses {
 		game.State = StateLost
 	}
 
@@ -111,12 +111,13 @@ func (game *Game) SubmitGuess(g GameRow) (GuessResult, error) {
 
 }
 
-// NewGame creates a new game object
-func NewGame() *Game {
+func NewEasyGame() *Game {
+	return NewGame(false, 4, 4, 10)
+}
 
-	maxColors := 4
-	holeCount := 4
-	allowDuplicates := false
+// NewGame creates a new game object
+func NewGame(allowDuplicates bool, maxColors int, holeCount int, maxGuesses int) *Game {
+
 	solution := make([]int, holeCount)
 
 	usedColours := make([]bool, maxColors)
@@ -138,7 +139,7 @@ func NewGame() *Game {
 		Solution:   solution,
 		Guesses:    make([]GameRow, 0),
 		State:      StateActive,
-		maxColors:  maxColors,
-		maxGuesses: 8,
+		MaxColors:  maxColors,
+		MaxGuesses: maxGuesses,
 	}
 }

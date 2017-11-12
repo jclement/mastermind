@@ -30,8 +30,8 @@ func TestSimpleCases(t *testing.T) {
 			Solution:   test.solution,
 			Guesses:    make([]GameRow, 0),
 			State:      StateActive,
-			maxColors:  4,
-			maxGuesses: 8,
+			MaxColors:  4,
+			MaxGuesses: 8,
 		}
 		res, err := game.SubmitGuess(test.guess)
 		if err == nil && test.expectedError {
@@ -57,8 +57,8 @@ func TestLose(t *testing.T) {
 		Solution:   GameRow{0, 0},
 		Guesses:    make([]GameRow, 0),
 		State:      StateActive,
-		maxColors:  4,
-		maxGuesses: 2,
+		MaxColors:  4,
+		MaxGuesses: 2,
 	}
 
 	res, _ := game.SubmitGuess(GameRow{1, 1})
@@ -79,8 +79,8 @@ func TestGuessClosed(t *testing.T) {
 			Solution:   GameRow{0, 0},
 			Guesses:    make([]GameRow, 0),
 			State:      state,
-			maxColors:  4,
-			maxGuesses: 2,
+			MaxColors:  4,
+			MaxGuesses: 2,
 		}
 
 		_, err := game.SubmitGuess(GameRow{1, 1})
